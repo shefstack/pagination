@@ -1,30 +1,34 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery} from "@tanstack/react-query";
 import { useSearch } from "@tanstack/react-router";
 import { getCharacters } from "../api";
 import CharTable from "../components/CharTable";
 import RefreshBtn from "../components/RefreshBtn";
-import { keepPreviousData } from "@tanstack/react-query";
 
 export default function CharList() {
   const { page = 1 } = useSearch({ from: "/" });
 
   const { data, isPending, error, refetch } = useQuery({
-    queryKey: ["char", page],
-    queryFn: () => getCharacters(page),
-    placeholderData:keepPreviousData,
-  });
+  queryKey: ["char", page],
+  queryFn: () => getCharacters(page),
+  initialData: {
+    info: { pages: 0, count: 0, next: null, prev: null },
+    results: [],
+  
+  keepPreviousData: true, }
+});
 
-  if (isPending) return <div className="p-4">Loading...</div>;
-  if (error) return <div className="p-4 text-red-500">Error loading characters</div>;
+
+  if (isPending) return <div>Data Loading</div>;
+  if (error) return (console.log(error));
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl mb-4">Rick & Morty Characters</h1>
+    <div>
+      <h4>Rick & Morty Characters List</h4>
       <RefreshBtn onClick={() => refetch()} />
-      <CharTable 
-        data={data?.results} 
-        totalPages={data?.info.pages} 
-        currentPage={page} 
+      <CharTable
+        data={data.results}          
+        totalPages={data.info.pages}  
+        currentPage={page}
       />
     </div>
   );

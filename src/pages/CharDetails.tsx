@@ -9,16 +9,14 @@ export default function CharacterDetails() {
     queryFn: () => getCharacterById(id),
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p>Loading</p>;
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl">{data.results}</h1>
-      {/* <img src={data.image} alt={data.name} className="w-48 h-48" />
+    <div>
       <p>Status: {data.status}</p>
       <p>Species: {data.species}</p>
       <p>Gender: {data.gender}</p>
-      <p>Origin: {data.origin.name}</p> */}
+      <p>Origin: {data.origin.name}</p>
     </div>
   );
 }

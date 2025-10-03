@@ -11,11 +11,7 @@ const rootRoute = createRootRoute();
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
-  
   component: CharList,
-   validateSearch: (search: { page?: number }) => ({
-    page: Number(search.page) || 1,
-  }),
 });
 
 const charDetailsRoute = createRoute({

@@ -11,7 +11,7 @@ export default function CharTable({ data, totalPages, currentPage }: Props) {
 
   return (
     <div>
-      <table className="border w-full">
+      <table>
         <thead>
           <tr>
             <th>Name</th>
@@ -20,26 +20,25 @@ export default function CharTable({ data, totalPages, currentPage }: Props) {
           </tr>
         </thead>
         <tbody>
-          {data.map((char) => (
+          {data.map((elem) => (
             <tr
-              key={char.id}
+              key={elem.id}
               onClick={() =>
                 navigate({
                   to: "/character/$id",
-                  params: { id: String(char.id) }, // ✅ required
+                  params: { id: String(elem.id) },
                 })
               }
-              className="cursor-pointer hover:bg-gray-100"
             >
-              <td>{char.name}</td>
-              <td>{char.status}</td>
-              <td>{char.species}</td>
+              <td>{elem.name}</td>
+              <td>{elem.status}</td>
+              <td>{elem.species}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      <div className="flex justify-between mt-4">
+      <div>
         {currentPage > 1 && (
           <button
             onClick={() =>
